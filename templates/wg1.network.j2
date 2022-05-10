@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+[Match]
+Name = wg1
+
+[Network]
+Address = {{ vpn_address6 }}
+Address = {{ vpn_address4 }}
+IPForward = yes
+
+# NDP proxying needs to be defined in the LAN interface .network file

@@ -1,0 +1,16 @@
+# Wireguard client config for {{ item.name }}
+
+[Interface]
+Address = {{ item.address4 }}
+Address = {{ item.address6 }}
+DNS = {{ resolved_dns | join(', ') }}
+PrivateKey = {{ item.private_key }}
+
+[Peer]
+PublicKey = {{ vpn_public_key }}
+AllowedIPs = 0.0.0.0/0, ::/0
+Endpoint = {{ ansible_default_ipv4.address }}:{{ vpn_listen_port }}
+{% if item.iptables is defined %}
+PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+PreDown = iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+{% endif %}

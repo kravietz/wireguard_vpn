@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+[NetDev]
+Name = wg1
+Kind = wireguard
+Description = WireGuard VPN interface
+
+[WireGuard]
+PrivateKey = {{ vpn_private_key }}
+ListenPort = {{ vpn_listen_port }}
+
+{% for wg_host in vpn_clients %}
+[WireGuardPeer]
+# {{ wg_host['name'] }}
+AllowedIPs = {{ wg_host['address4'] }}/32 {{ wg_host['address6'] }}/128
+PublicKey = {{ wg_host['public_key'] }}
+
+{% endfor %}
