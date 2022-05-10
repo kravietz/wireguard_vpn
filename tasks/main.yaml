@@ -1,7 +1,10 @@
 ---
+- name: load OS specific vars
+  include_vars: "{{ ansible_distribution | lower}}"
+
 - name: ensure wireguard installed
-  apt:
-          name: wireguard
+  package:
+          name: "{{ vpn_package }}"
 
 - name: wireguard netdev configuration
   template:
