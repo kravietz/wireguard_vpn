@@ -1,6 +1,6 @@
 ---
 - name: load OS specific vars
-  include_vars: "{{ ansible_distribution | lower}}"
+  include_vars: "{{ ansible_distribution | lower}}.yml"
 
 - name: ensure wireguard installed
   package:
