@@ -1,4 +1,3 @@
-
 # This is a basic workflow to help you get started with Actions
 
 name: Molecule
@@ -17,6 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          path: "${{ github.repository }}"
       - name: Ansible Molecule
-        uses: MonolithProjects/action-molecule@v1.4.3
+        uses: MonolithProjects/action-molecule@v1.4.5
