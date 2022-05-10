@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Paweł Krawczyk
+  author: kravietz
   description: Configure a IPv4/IPv6 Wireguard-based VPN service using `systemd-networkd` and generate client config files.
   company: Krawczyk Industries Limited
   issue_tracker_url: https://github.com/kravietz/wireguard_vpn/issues
