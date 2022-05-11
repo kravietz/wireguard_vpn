@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
 [Match]
-Name = wg1
+Name = {{ vpn_interface }}
 
 [Network]
 Address = {{ vpn_address6 }}

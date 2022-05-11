@@ -7,60 +7,64 @@
     update_cache: true
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
+- name: ensure systemd-networkd installed
+  package:
+    name: systemd-networkd
+
 - name: ensure wireguard installed
   package:
-          name: "{{ vpn_package }}"
+    name: "{{ vpn_package }}"
 
 - name: wireguard netdev configuration
   template:
-          src: templates/wg1.netdev.j2
-          dest: /etc/systemd/network/wg1.netdev
-          owner: root
-          group: systemd-network
-          mode: 0640
+    src: templates/wg1.netdev.j2
+    dest: "/etc/systemd/network/{{ vpn_interface }}.netdev"
+    owner: root
+    group: systemd-network
+    mode: 0640
   notify: restart systemd-networkd
 
 - name: wireguard network configuration
   template:
-          src: templates/wg1.network.j2
-          dest: /etc/systemd/network/wg1.network
-          owner: root
-          group: systemd-network
-          mode: 0644
+    src: templates/wg1.network.j2
+    dest: "/etc/systemd/network/{{ vpn_interface }}.network"
+    owner: root
+    group: systemd-network
+    mode: 0644
   notify: restart systemd-networkd
 
 - name: wireguard NDP proxy configuration
 
   lineinfile:
-          dest: "{{ vpn_ndp_config }}"
-          insertafter: '^\[Network\]'
-          line: "IPv6ProxyNDPAddress={{ item.address6 }}"
-          owner: root
-          group: root
-          mode: 0644
+    dest: "{{ vpn_ndp_config }}"
+    insertafter: '^\[Network\]'
+    line: "IPv6ProxyNDPAddress={{ item.address6 }}"
+    owner: root
+    group: root
+    mode: 0644
   loop: "{{ vpn_clients }}"
   notify: restart systemd-networkd
   when: vpn_ndp_config is defined
 
 - name: systemd-networkd service enabled
   service:
-          name: systemd-networkd
-          state: started
-          enabled: true
+    name: systemd-networkd
+    state: started
+    enabled: true
 
 - name: wireguard client file directory
   file:
-          dest: "{{ vpn_clients_dir }}"
-          state: directory
-          owner: root
-          group: root
-          mode: 0700
+    dest: "{{ vpn_clients_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
 
 - name: wireguard client configuration file
   template:
-          dest: "{{ vpn_clients_dir }}/{{ item.name }}.conf"
-          src: templates/client.j2
-          owner: root
-          group: root
-          mode: 0600
+    dest: "{{ vpn_clients_dir }}/{{ item.name }}.conf"
+    src: templates/client.j2
+    owner: root
+    group: root
+    mode: 0600
   loop: "{{ vpn_clients }}"

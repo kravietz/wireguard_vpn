@@ -1,3 +1,4 @@
 ---
 vpn_clients_dir: /root/wireguard
 vpn_clients: []
+vpn_interface: wg1
