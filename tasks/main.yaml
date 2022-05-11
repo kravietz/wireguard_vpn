@@ -7,6 +7,11 @@
     update_cache: true
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
+- name: disable handler for Docker testing
+  set_fact:
+    handler_enabled: true
+  tags: molecule-notest
+
   # this is only really needed for Molecule images
 - name: ensure systemd installed
   package:
@@ -44,7 +49,6 @@
   notify: restart systemd-networkd
 
 - name: wireguard NDP proxy configuration
-
   lineinfile:
     dest: "{{ vpn_ndp_config }}"
     insertafter: '^\[Network\]'
@@ -61,6 +65,7 @@
     name: systemd-networkd
     state: started
     enabled: true
+  tags: molecule-notest
 
 - name: wireguard client file directory
   file:

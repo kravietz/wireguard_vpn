@@ -1,5 +1,6 @@
 ---
 - name: restart systemd-networkd
   service:
-          name: systemd-networkd
-          state: restarted
+    name: systemd-networkd
+    state: restarted
+  when: handler_enabled | default(false)
