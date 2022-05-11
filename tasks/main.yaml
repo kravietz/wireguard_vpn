@@ -2,6 +2,11 @@
 - name: load OS specific vars
   include_vars: "{{ ansible_distribution | lower}}.yml"
 
+- name: update apt cache
+  apt:
+    update_cache: true
+  when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
 - name: ensure wireguard installed
   package:
           name: "{{ vpn_package }}"
