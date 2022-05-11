@@ -7,12 +7,17 @@
     update_cache: true
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
+  # this is only really needed for Molecule images
+- name: ensure systemd installed
+  package:
+    name: systemd
+
 - name: ensure systemd-networkd directory present
   file:
     dest: /etc/systemd/network/
     state: directory
     owner: root
-    group: root
+    group: systemd-network
     mode: 755
     recurse: true
 
