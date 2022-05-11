@@ -26,6 +26,8 @@ vpn_address4: "192.168.2.252/24"
 vpn_address6: '2a05:1111:0:3:8000::252/65'
 # required to set up NDP entries
 # vpn_ndp_config: /etc/systemd/network/eth0.network
+# DNS resolvers which will be set at clients for use with VPN
+#vpn_dns_resolvers: ["9.9.9.9", "2620:fe::fe"]
 
 # where client config files will be output
 vpn_clients_dir: /root/wireguard

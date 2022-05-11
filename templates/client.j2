@@ -3,8 +3,10 @@
 [Interface]
 Address = {{ item.address4 }}
 Address = {{ item.address6 }}
-DNS = {{ resolved_dns | join(', ') }}
 PrivateKey = {{ item.private_key }}
+{% if vpn_dns_resolvers is defined %}
+DNS = {{ vpn_dns_resolvers | join(', ') }}
+{% endif %}
 
 [Peer]
 PublicKey = {{ vpn_public_key }}
