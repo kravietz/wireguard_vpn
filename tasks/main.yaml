@@ -12,7 +12,7 @@
     dest: /etc/systemd/network/
     state: directory
     owner: root
-    group: systemd-network
+    group: root
     mode: 755
     recurse: true
 
