@@ -39,6 +39,17 @@
     mode: 0644
   notify: restart systemd-networkd
 
+- name: wireguard enable NDP proxy
+  lineinfile:
+    dest: "{{ vpn_ndp_config }}"
+    insertafter: '^\[Network\]'
+    line: IPv6ProxyNDP=yes
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart systemd-networkd
+  when: vpn_ndp_config is defined
+
 - name: wireguard NDP proxy configuration
   lineinfile:
     dest: "{{ vpn_ndp_config }}"

@@ -4,6 +4,7 @@
 Name = {{ ansible_default_ipv4.interface }}
 
 [Network]
+IPv6ProxyNDP = yes
 {% for item in vpn_clients %}
 IPv6ProxyNDPAddress = {{ item.address6 }}
 {% endfor %}
