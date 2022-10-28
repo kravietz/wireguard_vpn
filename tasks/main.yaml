@@ -76,6 +76,7 @@
     owner: root
     group: root
     mode: 0700
+  when: vpn_clients_dir is defined
 
 - name: Wireguard client configuration file
   ansible.builtin.template:
@@ -85,3 +86,4 @@
     group: root
     mode: 0600
   loop: "{{ vpn_clients }}"
+  when: vpn_clients_dir is defined
