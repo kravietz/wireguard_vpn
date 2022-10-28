@@ -4,14 +4,15 @@
   hosts: all
   roles:
     - role: kravietz.wireguard_vpn
-      vpn_private_key: wIfnNpua6YlD4XzVGUvOCVknCo1LzAF6iGkp7Tho43o=
-      vpn_public_key: +RHdC7oc8O/dojCOMf7CtYBZc5pA2DZPiE4dNRHHhlw=
+      vpn_private_key: "wIfnNpua6YlD4XzVGUvOCVknCo1LzAF6iGkp7Tho43o="
+      vpn_public_key: "+RHdC7oc8O/dojCOMf7CtYBZc5pA2DZPiE4dNRHHhlw="
       vpn_listen_port: 1194
       vpn_address4: "192.168.1.1/24"
       vpn_address6: '2a05:1111:0:3:8000::1/65'
+      vpn_clients_dir: /root/wireguard
       vpn_clients:
         - name: client1
-          address4: 192.168.1.100
-          address6: "2a05:1111:0:3:8000::100"
-          private_key: iJgcqx21xGETtzFIIdKfD/LvMqswJ2LWUiFPKUBLenw=
-          public_key: T4QbCHfGKLYFdmFeXVfDHP5AYpQ2AZapHIw+ZiCDIHs=
+          address4: 192.168.1.100/32
+          address6: "2a05:1111:0:3:8000::100/128"
+          private_key: "iJgcqx21xGETtzFIIdKfD/LvMqswJ2LWUiFPKUBLenw="
+          public_key: "T4QbCHfGKLYFdmFeXVfDHP5AYpQ2AZapHIw+ZiCDIHs="

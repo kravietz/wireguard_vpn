@@ -1,10 +1,7 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+  - name: Check wg-quick syntax
+    ansible.builtin.command: /usr/bin/wg-quick up /root/wireguard/client1.conf
