@@ -10,8 +10,8 @@ ListenPort = {{ vpn_listen_port }}
 
 {% for wg_host in vpn_clients %}
 [WireGuardPeer]
+PublicKey = {{ wg_host['public_key'] }}
 # {{ wg_host['name'] }}
 AllowedIPs = {% if 'address4' in wg_host %}{{ wg_host['address4'] }}/32{% endif %} {% if 'address6' in wg_host %}{{ wg_host['address6'] }}/128{% endif %}
-PublicKey = {{ wg_host['public_key'] }}
 
 {% endfor %}
