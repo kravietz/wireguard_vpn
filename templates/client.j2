@@ -32,6 +32,6 @@ AllowedIPs = {{ item['allowed_ips'] | join(', ') }}
 AllowedIPs = 0.0.0.0/0, ::/0
 {% endif %}
 Endpoint = {{ ansible_default_ipv4.address }}:{{ vpn_listen_port }}
-{% 'psk' in item %}
+{% if 'psk' in item %}
 PresharedKey = {{ item['psk'] }}
 {% endif %}
