@@ -1,6 +1,6 @@
 ---
 - name: Load OS specific vars
-  ansible.builtin.include_vars: "{{ ansible_distribution | lower }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_distribution | lower}}.yml"
 
 - name: Update apt cache
   ansible.builtin.apt:
@@ -28,7 +28,7 @@
     owner: root
     group: systemd-network
     mode: 0640
-  notify: restart systemd-networkd
+  notify: Restart systemd-networkd
 
 - name: Wireguard network configuration
   ansible.builtin.template:
@@ -37,7 +37,7 @@
     owner: root
     group: systemd-network
     mode: 0644
-  notify: restart systemd-networkd
+  notify: Restart systemd-networkd
 
 - name: Wireguard enable NDP proxy
   ansible.builtin.lineinfile:
@@ -47,7 +47,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart systemd-networkd
+  notify: Restart systemd-networkd
   when: vpn_ndp_config is defined
 
 - name: Wireguard NDP proxy configuration
@@ -59,7 +59,7 @@
     group: root
     mode: 0644
   loop: "{{ vpn_clients }}"
-  notify: restart systemd-networkd
+  notify: Restart systemd-networkd
   when: vpn_ndp_config is defined
 
 - name: Systemd-networkd service enabled
