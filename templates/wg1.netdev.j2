@@ -8,10 +8,13 @@ Description = WireGuard VPN interface
 PrivateKey = {{ vpn_private_key }}
 ListenPort = {{ vpn_listen_port }}
 
-{% for wg_host in vpn_clients %}
-# {{ wg_host['name'] }}
+{% for client in vpn_clients %}
+# {{ client['name'] }}
 [WireGuardPeer]
-PublicKey = {{ wg_host['public_key'] }}
-AllowedIPs = {% if 'address4' in wg_host %}{{ wg_host['address4'] }}/32{% endif %} {% if 'address6' in wg_host %}{{ wg_host['address6'] }}/128{% endif %}
+PublicKey = {{ client['public_key'] }}
+{% 'psk' in client %}
+PresharedKey = {{ client['address4'] }}
+{% endif %}
+AllowedIPs = {% if 'address4' in client %}{{ client['address4'] }}{% endif %} {% if 'address6' in client %}{{ client['address6'] }}{% endif %}
 
 {% endfor %}

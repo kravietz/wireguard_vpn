@@ -11,16 +11,27 @@ PrivateKey = {{ item.private_key }}
 {% if vpn_dns_resolvers is defined %}
 DNS = {{ vpn_dns_resolvers | join(', ') }}
 {% endif %}
+{% if 'preup' in item %}
+PreUp = {{ item['preup'] }}
+{% endif %}
+{% if 'postdown' in item %}
+PostDown = {{ item['postdown'] }}
+{% endif %}
+{% if 'table' in item %}
+Table = {{ item['table'] }}
+{% endif %}
+{% if 'mtu' in item %}
+MTU = {{ item['mtu'] }}
+{% endif %}
 
 [Peer]
 PublicKey = {{ vpn_public_key }}
-{% if item.routing is defined %}
-AllowedIPs = {{ item.routing | join(', ') }}
+{% if 'allowed_ips' in item %}
+AllowedIPs = {{ item['allowed_ips'] | join(', ') }}
 {% else %}
 AllowedIPs = 0.0.0.0/0, ::/0
 {% endif %}
 Endpoint = {{ ansible_default_ipv4.address }}:{{ vpn_listen_port }}
-{% if item.iptables is defined %}
-PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
-PreDown = iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+{% 'psk' in item %}
+PresharedKey = {{ item['psk'] }}
 {% endif %}
