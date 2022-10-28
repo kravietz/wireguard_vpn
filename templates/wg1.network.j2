@@ -4,8 +4,12 @@
 Name = {{ vpn_interface }}
 
 [Network]
+{% if vpn_address6 is defined %}
 Address = {{ vpn_address6 }}
+{% endif %}
+{% if vpn_address4 is defined %}
 Address = {{ vpn_address4 }}
+{% endif %}
 IPForward = yes
 
 # NDP proxying needs to be defined in the LAN interface .network file

@@ -2,15 +2,23 @@
 
 [Interface]
 Address = {{ item.address4 }}
+{% if item.address6 is defined %}
 Address = {{ item.address6 }}
+{% endif %}
+{% if item.private_key is defined %}
 PrivateKey = {{ item.private_key }}
+{% endif %}
 {% if vpn_dns_resolvers is defined %}
 DNS = {{ vpn_dns_resolvers | join(', ') }}
 {% endif %}
 
 [Peer]
 PublicKey = {{ vpn_public_key }}
+{% if item.routing is defined %}
+AllowedIPs = {{ item.routing | join(', ') }}
+{% else %}
 AllowedIPs = 0.0.0.0/0, ::/0
+{% endif %}
 Endpoint = {{ ansible_default_ipv4.address }}:{{ vpn_listen_port }}
 {% if item.iptables is defined %}
 PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT

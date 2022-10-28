@@ -1,28 +1,28 @@
 ---
-- name: load OS specific vars
-  include_vars: "{{ ansible_distribution | lower}}.yml"
+- name: Load OS specific vars
+  ansible.builtin.include_vars: "{{ ansible_distribution | lower }}.yml"
 
-- name: update apt cache
-  apt:
+- name: Update apt cache
+  ansible.builtin.apt:
     update_cache: true
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
-- name: disable handler for Docker testing
-  set_fact:
+- name: Disable handler for Docker testing
+  ansible.builtin.set_fact:
     handler_enabled: true
   tags: molecule-notest
 
   # this is only really needed for Molecule images
-- name: ensure systemd installed
-  package:
+- name: Ensure systemd installed
+  ansible.builtin.package:
     name: systemd
 
-- name: ensure wireguard installed
-  package:
+- name: Ensure wireguard installed
+  ansible.builtin.package:
     name: "{{ vpn_package }}"
 
-- name: wireguard netdev configuration
-  template:
+- name: Wireguard netdev configuration
+  ansible.builtin.template:
     src: templates/wg1.netdev.j2
     dest: "/etc/systemd/network/{{ vpn_interface }}.netdev"
     owner: root
@@ -30,8 +30,8 @@
     mode: 0640
   notify: restart systemd-networkd
 
-- name: wireguard network configuration
-  template:
+- name: Wireguard network configuration
+  ansible.builtin.template:
     src: templates/wg1.network.j2
     dest: "/etc/systemd/network/{{ vpn_interface }}.network"
     owner: root
@@ -39,8 +39,8 @@
     mode: 0644
   notify: restart systemd-networkd
 
-- name: wireguard enable NDP proxy
-  lineinfile:
+- name: Wireguard enable NDP proxy
+  ansible.builtin.lineinfile:
     dest: "{{ vpn_ndp_config }}"
     insertafter: '^\[Network\]'
     line: IPv6ProxyNDP=yes
@@ -50,8 +50,8 @@
   notify: restart systemd-networkd
   when: vpn_ndp_config is defined
 
-- name: wireguard NDP proxy configuration
-  lineinfile:
+- name: Wireguard NDP proxy configuration
+  ansible.builtin.lineinfile:
     dest: "{{ vpn_ndp_config }}"
     insertafter: '^\[Network\]'
     line: "IPv6ProxyNDPAddress={{ item.address6 }}"
@@ -62,23 +62,23 @@
   notify: restart systemd-networkd
   when: vpn_ndp_config is defined
 
-- name: systemd-networkd service enabled
-  service:
+- name: Systemd-networkd service enabled
+  ansible.builtin.service:
     name: systemd-networkd
     state: started
     enabled: true
   tags: molecule-notest
 
-- name: wireguard client file directory
-  file:
+- name: Wireguard client file directory
+  ansible.builtin.file:
     dest: "{{ vpn_clients_dir }}"
     state: directory
     owner: root
     group: root
     mode: 0700
 
-- name: wireguard client configuration file
-  template:
+- name: Wireguard client configuration file
+  ansible.builtin.template:
     dest: "{{ vpn_clients_dir }}/{{ item.name }}.conf"
     src: templates/client.j2
     owner: root
