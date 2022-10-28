@@ -14,7 +14,7 @@ ListenPort = {{ vpn_listen_port }}
 [WireGuardPeer]
 PublicKey = {{ client['public_key'] }}
 {% if 'psk' in client %}
-PresharedKey = {{ client['address4'] }}
+PresharedKey = {{ client['psk'] }}
 {% endif %}
 
 AllowedIPs = {% if 'address4' in client %}{{ client['address4'] }}{% endif %} {% if 'address6' in client %}{{ client['address6'] }}{% endif %}
