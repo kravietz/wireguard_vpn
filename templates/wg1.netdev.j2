@@ -1,4 +1,5 @@
 # {{ ansible_managed }}
+
 [NetDev]
 Name = {{ vpn_interface }}
 Kind = wireguard
@@ -12,9 +13,10 @@ ListenPort = {{ vpn_listen_port }}
 # {{ client['name'] }}
 [WireGuardPeer]
 PublicKey = {{ client['public_key'] }}
-{% 'psk' in client %}
+{% if 'psk' in client %}
 PresharedKey = {{ client['address4'] }}
 {% endif %}
+
 AllowedIPs = {% if 'address4' in client %}{{ client['address4'] }}{% endif %} {% if 'address6' in client %}{{ client['address6'] }}{% endif %}
 
 {% endfor %}
