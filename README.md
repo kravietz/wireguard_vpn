@@ -51,7 +51,7 @@ vpn_clients: []  # REQUIRED
 #     # generate with `wg pubkey` from the above
 #     public_key: "RfDKFurwFo/ytXd9Ko5oEy7I7H4hjNBiT1bc1t+V4Wc="              # REQUIRED
 #     # tunnel route to set on client side
-#     routing: ["192.168.2.1/32"]         # OPTIONAL
+#     # allowed_ips: ["192.168.2.1/32"]         # OPTIONAL
 #     # generate with `wg genpsk` - ***protect with ansible-vault***
 #     # psk: "151ODHNbvmiK/ox+2ndnZbVcfrIMRJjFjHXlb7o3ZeI="  # OPTIONAL
 #     # mtu, table, preup, postdown are also supported - see wg-quick(8)
