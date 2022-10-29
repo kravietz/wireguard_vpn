@@ -20,6 +20,7 @@ jobs:
         uses: a7ul/tar-action@v1.1.2
         with:
           files: .
+          command: c
           outPath: release.tar.gz
           
       - name: Build and Deploy Collection
