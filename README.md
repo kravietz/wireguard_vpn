@@ -10,7 +10,9 @@ The role configures a Wireguard-based VPN service on a Linux box with the follow
 * All network configuration managed using `systemd-networkd`
 * IPv4 networking in tunnel using RFC 1918 addressing and NAT
 * IPv6 networking in tunnel using fully routable subnet and NDP proxying
-* Generates client `.conf` files for `wg-quick`
+* Support for Wireguard pre-shared keys
+* Generates client `.conf` files for `wg-quick(8)`
+* All `wg-quick(8)` configuration options supported
 
 Role Variables
 --------------
