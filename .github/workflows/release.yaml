@@ -16,10 +16,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Build and Deploy Collection
-        uses: 0x022b/galaxy-role-import-action@1.0.0
+      - name: Ansible Galaxy Publish
+        uses: ansible/ansible-publish-action@v1.0.0
         with:
-          galaxy_api_key: '${{ secrets.ANSIBLE_GALAXY_TOKEN }}'
+          api_key: '${{ secrets.ANSIBLE_GALAXY_TOKEN }}'
           
       - name: debug
         run: ls -lR
@@ -27,7 +27,7 @@ jobs:
       - name: Sign release with Sigstore
         uses: sigstore/gh-action-sigstore-python@v0.0.9
         with:
-          inputs: ./dist/*.tar.gz ./dist/*.zip
+          inputs: *.tar.gz *.zip
           release-signing-artifacts: true
 
         
