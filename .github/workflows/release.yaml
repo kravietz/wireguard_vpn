@@ -36,7 +36,7 @@ jobs:
         with:
           inputs: release.tar.gz
           release-signing-artifacts: true
-           upload-signing-artifacts: true
+          upload-signing-artifacts: true
 
         
     
