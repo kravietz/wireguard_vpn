@@ -5,6 +5,10 @@ on:
   push:
     tags: ['*']
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -12,14 +16,24 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Sign release with Sigstore
-        uses: sigstore/gh-action-sigstore-python@v0.0.9
-        with:
-          release-signing-artifacts: true
-          upload-signing-artifacts: true
-
       - name: Build and Deploy Collection
         uses: 0x022b/galaxy-role-import-action@1.0.0
         with:
           galaxy_api_key: '${{ secrets.ANSIBLE_GALAXY_TOKEN }}'
-          identity-token: '${{ secrets.SIGSTORE_TOKEN }}'
+          
+      - name: debug
+        run: ls -lR
+        
+      - name: Sign release with Sigstore
+        uses: sigstore/gh-action-sigstore-python@v0.0.9
+        with:
+          inputs: ./dist/*.tar.gz ./dist/*.zip
+          release-signing-artifacts: true
+
+        
+    
+
+ 
+        
+        
+          
