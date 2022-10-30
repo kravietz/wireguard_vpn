@@ -42,10 +42,10 @@ vpn_interface: wg1
 # enables generation of .conf files for clients' wg-quick utility
 # vpn_clients_dir: /root/wireguard  # OPTIONAL
 
-# vpn_clients:                             # OPTIONAL array
-#   - name: client1                        # REQUIRED
-#     address4: 192.168.2.110              # at least one of address4, address6 is REQUIRED
-#     address6: "2a05:1111:0:3:8000::110"  # at least one of address4, address6 is REQUIRED
+# vpn_clients:                                # OPTIONAL array
+#   - name: client1                           # REQUIRED
+#     address4: 192.168.2.110/32              # at least one of address4, address6 is REQUIRED
+#     address6: "2a05:1111:0:3:8000::110/80"  # at least one of address4, address6 is REQUIRED
 #     # only needed if generated .config files should come with private key already included
 #     # otherwise they will contain a placeholder
 #     # generate with `wg genkey` ***protect with ansible-vault***
