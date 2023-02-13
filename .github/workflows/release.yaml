@@ -39,7 +39,7 @@ jobs:
           outPath: ${{ steps.version.outputs.version }}.tar.gz
 
       - name: Sign release with Sigstore
-        uses: sigstore/gh-action-sigstore-python@v0.0.9
+        uses: sigstore/gh-action-sigstore-python@1.1.0
         with:
           inputs: ${{ steps.version.outputs.version }}.tar.gz
           release-signing-artifacts: true
