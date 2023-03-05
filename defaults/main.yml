@@ -7,20 +7,24 @@ vpn_interface: wg1
 # vpn_public_key: "OBGsZZxxX0jcehmFJc0L6v7FX3PMnVDFgdgpjJFU0k4="   # REQUIRED
 
 ## UDP listening port on public Internet
-# vpn_listen_port: 1194  # REQUIRED
+# vpn_listen_port: 1194                              # REQUIRED
 
 ## Addresses on internal VPN tunnel
-# vpn_address4: "192.168.2.252/24"            # at least one is REQUIRED
-# vpn_address6: '2a05:1111:0:3:8000::252/65'  # at least one is REQUIRED
+# vpn_address4: "192.168.2.252/24"                   # at least one is REQUIRED
+# vpn_address6: '2a05:1111:0:3:8000::252/65'         # at least one is REQUIRED
 
 ## required to set up NDP entries for IPv6 VPN clients
 # vpn_ndp_config: /etc/systemd/network/eth0.network  # OPTIONAL
 
 ## DNS resolvers which will be set at clients for use with VPN
-# vpn_dns_resolvers: ["9.9.9.9", "2620:fe::fe"]  # OPTIONAL, must be array
+# vpn_dns_resolvers: ["9.9.9.9", "2620:fe::fe"]      # OPTIONAL, must be array
 
 # enables generation of .conf files for clients' wg-quick utility
-# vpn_clients_dir: /root/wireguard  # OPTIONAL
+# vpn_clients_dir: /root/wireguard                   # OPTIONAL
+
+# VPN endpoint address or hostname to be added to generated client configs
+# by default ansible_default_ipv4.address will be used
+# vpn_endpoint: 123.123.123.123                      # OPTIONAL
 
 vpn_clients: []  # REQUIRED
 # vpn_clients:
