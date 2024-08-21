@@ -1,4 +1,6 @@
 ---
+vpn_package: wireguard
+
 vpn_interface: wg1
 
 # generate with `wg genkey` - ***protect with ansible-vault***
